@@ -1,0 +1,38 @@
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: dao-service
+  labels:
+    app: dao-service
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: dao-service
+    spec:
+      containers:
+      - name: dao-service
+        image: dao-service:latest
+        imagePullPolicy: Never
+        ports:
+        - containerPort: 2222
+#      nodeSelector:
+#        beta.kubernetes.io/os: linux
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: dao-service
+  labels:
+    app: dao-service
+spec:
+  type: NodePort
+  ports:
+  # the port that this service should serve on
+  - port: 2222
+    targetPort: 2222
+    nodePort: 31090
+  selector:
+    app: dao-service

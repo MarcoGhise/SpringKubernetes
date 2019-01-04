@@ -1,0 +1,52 @@
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: mvc-service
+  labels:
+    app: mvc-service
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: mvc-service
+    spec:
+      containers:
+      - name: mvc-service
+        image: mvc-service:latest
+        imagePullPolicy: Never
+        ports:
+        - containerPort: 3333
+#      nodeSelector:
+#        beta.kubernetes.io/os: linux
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mvc-service
+  labels:
+    app: mvc-service
+spec:
+  type: NodePort
+  ports:
+  # the port that this service should serve on
+  - port: 3333
+    targetPort: 3333
+    nodePort: 31190
+  selector:
+    app: mvc-service
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: gateway-ingress
+spec:
+  rules:
+  - host: mybooking.com
+    http:
+      paths:
+      - backend:
+          serviceName: mvc-service
+          servicePort: 3333
+        path: /

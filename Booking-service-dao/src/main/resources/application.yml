@@ -1,0 +1,30 @@
+
+server:
+  port: 2222
+
+spring:
+  profiles:
+    active: local
+
+---
+spring:  
+  profiles: local
+  application:
+    name: booking-dao
+  data:
+    mongodb:
+      host: mongo
+      port: 27017
+      database: bookingKurbenetes
+---      
+spring:  
+  profiles: openshift
+  application:
+    name: techannotation-booking-service-dao
+  data:
+    mongodb:
+      host: 172.30.8.110
+      port: 27017
+      username: booking-usr
+      password: booking-pwd
+      database: booking
