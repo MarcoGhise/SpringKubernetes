@@ -36,16 +36,3 @@ spec:
   selector:
     app: mvc-service
 ---
-#apiVersion: extensions/v1beta1
-#kind: Ingress
-#metadata:
-#  name: gateway-ingress
-#spec:
-#  rules:
-#  - host: mybooking.com
-#    http:
-#      paths:
-#      - backend:
-#          serviceName: mvc-service
-#          servicePort: 3333
-#        path: /
