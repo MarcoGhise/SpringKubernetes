@@ -5,7 +5,7 @@
 
 	<groupId>it.blog.kubernetes.booking.mvc</groupId>
 	<artifactId>Booking-service-mvc</artifactId>
-	<version>1.0</version>
+	<version>blue</version>
 	<packaging>jar</packaging>
 
 	<name>Booking-service-mvc</name>
