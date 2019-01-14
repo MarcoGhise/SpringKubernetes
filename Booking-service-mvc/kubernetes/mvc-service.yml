@@ -3,8 +3,6 @@ apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   name: mvc-service-blue
-  labels:
-    app: mvc-service
 spec:
   replicas: 1
   template:
@@ -29,10 +27,6 @@ metadata:
 spec:
   type: NodePort
   ports:
-  # the port that this service should serve on
   - port: 3333
-    targetPort: 3333
-    nodePort: 31190
   selector:
     app: mvc-service
----
