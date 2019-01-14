@@ -1,7 +1,5 @@
 docker build --file=Dockerfile --tag=mvc-service:brown --rm=true .
 
-kubectl create -f kubernetes/mvc-service.yml
+C:\minikube\istio_0.5.1_win\bin\istioctl.exe kube-inject -f mvc-service.yml > istio-mvc-service.yml
 
-Enable and Create Ingress
-
-kubectl create clusterrolebinding default-admin --clusterrole cluster-admin --serviceaccount=default:default 
+kubectl.exe apply -f .\kubernetes\istio-mvc-service.yml

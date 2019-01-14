@@ -3,3 +3,6 @@ server:
 spring:  
   application:
     name: booking-mvc
+dao-service:
+  ribbon:
+    listOfServers: dao-service:2222
