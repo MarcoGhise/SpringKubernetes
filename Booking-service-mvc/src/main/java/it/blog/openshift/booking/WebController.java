@@ -6,6 +6,7 @@ import java.util.List;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,9 +24,25 @@ public class WebController {
 	@Autowired
 	private DaoClient client;
 
+	@Value("${dao-service.random.exception}")
+	private double exceptionNumber;
+	
+	@Value("${dao-service.random.max}")
+	private double maxNumber;
+	
+	@Value("${dao-service.random.min}")
+	private double minNumber;
+	
 	@RequestMapping("/")
-	public ModelAndView welcome(Model model) {
-		logger.info("Start Request for welcome v1.6");
+	public ModelAndView welcome(Model model) throws Exception {
+
+		double generateNumber = getRandomIntegerBetweenRange(minNumber, maxNumber);
+		
+		logger.info(String.format("Start Request for welcome v1.6 - Number:%s", generateNumber));
+		
+		if (exceptionNumber == generateNumber)
+			throw new Exception("Fake exception raised");		
+		
 		model.addAttribute("booking", new Booking());
 
 		return new ModelAndView("home");
@@ -58,5 +75,13 @@ public class WebController {
 		return new ModelAndView("redirect:/");
 				
 	}	
+	
+	public static double getRandomIntegerBetweenRange(double min, double max){
+
+	    double x = (int)(Math.random()*((max-min)+1))+min;
+
+	    return x;
+
+	}
 
 }
