@@ -3,4 +3,4 @@ VOLUME /tmp
 COPY target/Booking-service-mvc-blue.jar mvc-service.jar
 ENV JAVA_OPTS=""
 ENTRYPOINT exec java -jar /mvc-service.jar --debug
-EXPOSE 3333
+EXPOSE 80

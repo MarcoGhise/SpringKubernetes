@@ -1,4 +1,19 @@
 ---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mvc-service
+  labels:
+    app: mvc-service
+spec:
+  type: ClusterIP
+  selector:
+    app: mvc-service
+  ports:
+  - name: http
+    port: 80
+ 
+---
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
@@ -16,17 +31,36 @@ spec:
         image: mvc-service:blue
         imagePullPolicy: Never
         ports:
-        - containerPort: 3333
+        - containerPort: 80
 ---
-apiVersion: v1
-kind: Service
-metadata:
-  name: mvc-service
-  labels:
-    app: mvc-service
-spec:
-  type: NodePort
-  ports:
-  - port: 3333
-  selector:
-    app: mvc-service
+#apiVersion: extensions/v1beta1
+#kind: Ingress
+#metadata:
+#  name: gateway
+#  annotations:
+#    kubernetes.io/ingress.class: "istio"
+#spec:
+#  rules:
+#  - http:
+#      paths:
+#      - path: /.*
+#        backend:
+#          serviceName: mvc-service
+#          servicePort: 3333
+---
+#apiVersion: config.istio.io/v1alpha2
+#kind: RouteRule
+#metadata:
+#  name: mvc-service-canary
+#spec:
+#  destination:
+#    name: mvc-service
+#  precedence: 3
+#  route:
+#  - labels:
+#      version: blue
+#    weight: 90
+#  - labels:
+#      version: brown
+#    weight: 10    
+---
