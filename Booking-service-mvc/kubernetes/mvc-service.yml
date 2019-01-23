@@ -16,4 +16,4 @@ spec:
         image: mvc-service:brown
         imagePullPolicy: Never
         ports:
-        - containerPort: 80
+        - containerPort: 9080

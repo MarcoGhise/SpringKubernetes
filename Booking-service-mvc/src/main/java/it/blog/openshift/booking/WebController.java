@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -49,11 +50,22 @@ public class WebController {
 	}
 	
 	@RequestMapping("/bookings")
-	public ModelAndView getBooking() {
+	public ModelAndView getBooking(@RequestHeader("x-request-id") String xreq,
+			  @RequestHeader("x-b3-traceid") String xtraceid,
+			  @RequestHeader("x-b3-spanid") String xspanid,
+			  @RequestHeader("x-b3-sampled") String xsampled) {
 		
 		logger.info("Start Request for Bookings");
 		
-		List<Booking> books = client.getBooking();	
+		logger.info("x-request-id:" + xreq);
+		logger.info("x-b3-traceid:" + xtraceid);
+		logger.info("x-b3-spanid:" + xspanid);
+		logger.info("x-b3-sampled:" + xsampled);
+		
+		List<Booking> books = client.getBooking(xreq,
+				  								xtraceid,
+				  								xspanid,				  						
+				  								xsampled);	
 		
 		logger.info("Getting bookings:" + books.size());
 		
