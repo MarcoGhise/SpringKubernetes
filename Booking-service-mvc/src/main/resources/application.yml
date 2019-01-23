@@ -8,3 +8,7 @@ spring:
 #    listOfServers: dao-service:2222
 dao-service:
   url: http://dao-service:9080  
+  random:
+    exception: 1
+    max: 2
+    min: 1
