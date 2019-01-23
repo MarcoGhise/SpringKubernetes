@@ -1,5 +1,5 @@
 server:
-  port: 3333 
+  port: 9080 
 spring:  
   application:
     name: booking-mvc
@@ -7,4 +7,4 @@ spring:
 #  ribbon:
 #    listOfServers: dao-service:2222
 dao-service:
-  url: http://dao-service:2222  
+  url: http://dao-service:9080  
