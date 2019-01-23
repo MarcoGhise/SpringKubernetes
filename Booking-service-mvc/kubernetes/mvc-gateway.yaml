@@ -40,12 +40,16 @@ spec:
   http:     
   - route:
     - destination:
-        host: mvc-service
+        host: mvc-service        
         subset: brown
+        port:
+          number: 9080
       weight: 50 
     - destination:
         host: mvc-service
         subset: blue
+        port:
+          number: 9080
       weight: 50         
     retries:
       attempts: 3         
